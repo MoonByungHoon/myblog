@@ -8,12 +8,11 @@ import java.util.List;
 
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "freeboard")
-public class FreeBoardEntity {
+public class FreeBoardEntity extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class FreeBoardEntity {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private UserEntity writer;
 
   @Column(name = "title", nullable = false, length = 60)
@@ -36,8 +35,12 @@ public class FreeBoardEntity {
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "freeBoard")
   private List<FreeBoardReplyEntity> replys = new ArrayList<>();
 
-  public void addReply(FreeBoardReplyEntity reply){
+  public void addReply(final FreeBoardReplyEntity reply){
     this.replys.add(reply);
     reply.setFreeBoard(this);
+  }
+
+  public void setWriter(final UserEntity user) {
+    this.writer = user;
   }
 }

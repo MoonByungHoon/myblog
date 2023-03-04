@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Builder
-@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-public class UserEntity extends BaseTimeEntity{
+public class UserEntity extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +28,14 @@ public class UserEntity extends BaseTimeEntity{
   @Column(name = "nickname", nullable = false, length = 30, unique = true)
   private String nickname;
 
-  @OneToOne(mappedBy = "user")
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
   @PrimaryKeyJoinColumn
   private UserInfoEntity userInfo;
 
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "writer")
   private List<FreeBoardEntity> freeboards = new ArrayList<>();
 
-  public void addFreeboard(FreeBoardEntity freeBoard) {
+  public void addFreeboard(final FreeBoardEntity freeBoard) {
     this.freeboards.add(freeBoard);
     freeBoard.setWriter(this);
   }
@@ -44,7 +43,7 @@ public class UserEntity extends BaseTimeEntity{
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "writer")
   private List<FreeBoardReplyEntity> replys = new ArrayList<>();
 
-  public void addReply(FreeBoardReplyEntity reply) {
+  public void addReply(final FreeBoardReplyEntity reply) {
     this.replys.add(reply);
     reply.setWriter(this);
   }

@@ -5,12 +5,11 @@ import lombok.*;
 
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "email_config")
-public class EmailConfigEntity {
+public class EmailConfigEntity extends BaseTimeEntity {
 
   @Id
   @Column(name = "email", nullable = false, length = 256, unique = true)
@@ -18,8 +17,4 @@ public class EmailConfigEntity {
 
   @Column(name = "auth_code", length = 30)
   private String authCode;
-
-  @OneToOne(mappedBy = "email")
-  @PrimaryKeyJoinColumn
-  private UserInfoEntity userInfo;
 }

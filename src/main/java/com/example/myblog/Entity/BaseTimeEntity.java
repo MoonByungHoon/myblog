@@ -8,7 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @MappedSuperclass
@@ -19,12 +19,12 @@ public class BaseTimeEntity {
   @CreatedDate
   //Auditing에서 데이터가 생성될 때에 업데이트를 해주길 바라는 변수에 사용한다.
   @Column
-  private LocalDateTime createdDate;
+  private LocalDate createdDate;
 
   @LastModifiedDate
   //Auditing에서 데이터가 업데이트될 때에 업데이트 해주길 바라는 변수에 사용한다.
   //이 외에 @CreatedBy, @LastModifiedBy도 존재한다.
   @Column
-  private LocalDateTime modifiedDate;
+  private LocalDate modifiedDate;
 
 }

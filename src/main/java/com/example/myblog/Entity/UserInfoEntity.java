@@ -9,13 +9,13 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "user_info")
-public class UserInfoEntity {
+public class UserInfoEntity extends BaseTimeEntity {
 
   @Id
   @Column(name = "id", nullable = false)
   private Long id;
 
-  @OneToOne(fetch = FetchType.EAGER)
+  @OneToOne(fetch = FetchType.LAZY)
   @MapsId
   @JoinColumn(name = "id", referencedColumnName = "id")
   private UserEntity user;
@@ -28,10 +28,6 @@ public class UserInfoEntity {
 
   @Column(name = "email", nullable = false, length = 256)
   private String email;
-
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "email", referencedColumnName = "email")
-  private EmailConfigEntity emailConfig;
 
   @Column(name = "auth_code", length = 30)
   private String authCode;

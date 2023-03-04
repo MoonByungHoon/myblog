@@ -5,12 +5,11 @@ import lombok.*;
 
 @Builder
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "freeboard_reply")
-public class FreeBoardReplyEntity {
+public class FreeBoardReplyEntity extends BaseTimeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +19,18 @@ public class FreeBoardReplyEntity {
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "user_id", nullable = false)
   private UserEntity writer;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "freeboard_id")
-  private FreeBoardEntity freeBoard;
+  @JoinColumn(name = "freeboard_id", nullable = false)
+  private FreeBoardEntity freeBoardId;
+
+  public void setWriter(final UserEntity user) {
+    this.writer = user;
+  }
+
+  public void setFreeBoard(final FreeBoardEntity freeBoard) {
+    this.freeBoardId = freeBoard;
+  }
 }
