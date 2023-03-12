@@ -1,4 +1,4 @@
 package com.example.myblog.Controller;
 
-public class FreeBoardController g{
+public class FreeBoardController {
 }
